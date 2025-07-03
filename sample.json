@@ -1,0 +1,6 @@
+[
+  { "payload": { "id": "u_001", "name": "Alice"   } },
+  { "payload": { "id": "u_002", "name": "Bob"     } },
+  { "payload": { "id": null  , "name": "No-ID"    } },
+  { "payload": { "id": "x_003", "name": "Charlie" } }
+]
