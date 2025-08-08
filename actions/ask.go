@@ -14,6 +14,10 @@ import (
 func RunAsk(ctx context.Context, cfg *domain.Config, question string, dry bool) error {
 	helpers.Log.Debug().Msgf("Question = %q", question)
 
+	spinner := helpers.NewSpinner()
+	spinner.Start()
+	defer spinner.Stop()
+
 	llm, err := services.NewLLM(ctx, cfg)
 	if err != nil {
 		helpers.Log.Error().Msgf("Failed to initialize AI provider: %v", err)
