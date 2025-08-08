@@ -87,6 +87,46 @@ pipeai --act "list PDF files"
 pipeai setup
 ```
 
+## Configuration
+
+PipeAI supports multiple AI providers through an interactive setup process:
+
+```sh
+# Run interactive setup
+pipeai setup
+
+# Example session:
+LLM provider (gemini/openai/ollama) []: gemini
+API key (skip for ollama) []: YOUR_GEMINI_KEY
+Model []: gemini-pro
+```
+
+The configuration is stored in `~/.pipeai/config.yaml`:
+
+```yaml
+# Example config for different providers:
+
+# Gemini
+llm: gemini
+model: gemini-pro
+key: YOUR_GEMINI_KEY
+
+# OpenAI
+llm: openai
+model: gpt-4o
+key: YOUR_OPENAI_KEY
+
+# Ollama (local)
+llm: ollama
+model: llama2
+key: ""  # not needed
+```
+
+You can also override config values via flags:
+```sh
+pipeai --llm ollama --model codellama --ask "find large files"
+```
+
 ## Examples
 
 ### Cross-Platform Commands
