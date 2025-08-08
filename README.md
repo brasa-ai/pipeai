@@ -16,19 +16,19 @@ Natural language → shell commands. Cloud or local AI.
 ### From Release
 ```sh
 # Linux/macOS (AMD64)
-curl -L https://github.com/AxeByte/pipeai.axebyte/releases/latest/download/pipeai-linux-amd64.tar.gz -o pipeai-linux-amd64.tar.gz
+curl -L https://github.com/AxeByte/pipeai.axebyte/releases/download/stable/pipeai-linux-amd64.tar.gz -o pipeai-linux-amd64.tar.gz
 tar -xvf pipeai-linux-amd64.tar.gz pipeai-linux-amd64
 chmod +x pipeai-linux-amd64
 sudo mv pipeai-linux-amd64 /usr/local/bin/pipeai
 
 # Linux/macOS (ARM64)
-curl -L https://github.com/AxeByte/pipeai.axebyte/releases/latest/download/pipeai-linux-arm64.tar.gz -o pipeai-linux-arm64.tar.gz
+curl -L https://github.com/AxeByte/pipeai.axebyte/releases/download/stable/pipeai-linux-arm64.tar.gz -o pipeai-linux-arm64.tar.gz
 tar -xvf pipeai-linux-arm64.tar.gz pipeai-linux-arm64
 chmod +x pipeai-linux-arm64
 sudo mv pipeai-linux-arm64 /usr/local/bin/pipeai
 
 # Windows (PowerShell)
-Invoke-WebRequest -Uri https://github.com/AxeByte/pipeai.axebyte/releases/latest/download/pipeai-windows-amd64.zip -OutFile pipeai-windows-amd64.zip
+Invoke-WebRequest -Uri https://github.com/AxeByte/pipeai.axebyte/releases/download/stable/pipeai-windows-amd64.zip -OutFile pipeai-windows-amd64.zip
 Expand-Archive -Path pipeai-windows-amd64.zip -DestinationPath .
 Move-Item -Path pipeai-windows-amd64/pipeai-windows-amd64.exe -Destination pipeai.exe
 ```
@@ -47,36 +47,6 @@ sudo mv pipeai /usr/local/bin/
 
 # Or use go install
 go install github.com/AxeByte/pipeai.axebyte@latest
-```
-
-### Build Release
-```sh
-# Build for all platforms
-GOOS=linux GOARCH=amd64 go build -o pipeai-linux-amd64
-GOOS=linux GOARCH=arm64 go build -o pipeai-linux-arm64
-GOOS=darwin GOARCH=amd64 go build -o pipeai-darwin-amd64
-GOOS=darwin GOARCH=arm64 go build -o pipeai-darwin-arm64
-GOOS=windows GOARCH=amd64 go build -o pipeai-windows-amd64.exe
-
-# Create release archives
-tar czf pipeai-linux-amd64.tar.gz pipeai-linux-amd64
-tar czf pipeai-linux-arm64.tar.gz pipeai-linux-arm64
-tar czf pipeai-darwin-amd64.tar.gz pipeai-darwin-amd64
-tar czf pipeai-darwin-arm64.tar.gz pipeai-darwin-arm64
-zip pipeai-windows-amd64.zip pipeai-windows-amd64.exe
-```
-
-### Create Release
-```sh
-# Tag version
-git tag -a v1.0.0 -m "Release v1.0.0"
-git push origin v1.0.0
-
-# GitHub Actions will automatically:
-# 1. Build binaries for all platforms
-# 2. Create release archives
-# 3. Create GitHub release
-# 4. Upload artifacts
 ```
 
 ## Usage

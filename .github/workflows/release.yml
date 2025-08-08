@@ -7,8 +7,6 @@ on:
         description: 'Tag to release (e.g. v1.0.0)'
         required: true
 
-      
-
 permissions:
   contents: write
 
@@ -43,7 +41,9 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ github.event.inputs.tag }}
-          files: dist/*.tar.gz
+          files: |
+            dist/*.tar.gz
+            dist/*.zip
           draft: false
           prerelease: false
           generate_release_notes: true
