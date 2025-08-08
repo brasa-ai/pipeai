@@ -10,26 +10,21 @@ import (
 	"github.com/your-handle/pipeai/domain"
 )
 
-const (
-	dirName  = ".pipeai"
-	fileName = "config.yaml"
-)
-
-func path() (string, error) {
+func configPath() (string, error) {
 	home, err := homedir.Dir()
 	if err != nil {
 		return "", err
 	}
-	return filepath.Join(home, dirName, fileName), nil
+	return filepath.Join(home, ".pipeai", "config.yaml"), nil
 }
 
 func Load() (*domain.Config, error) {
 	cfg := &domain.Config{}
-	p, err := path()
+	path, err := configPath()
 	if err != nil {
 		return cfg, err
 	}
-	f, err := os.OpenFile(p, os.O_RDONLY|os.O_CREATE, 0600)
+	f, err := os.OpenFile(path, os.O_RDONLY|os.O_CREATE, 0600)
 	if err != nil {
 		return cfg, err
 	}
@@ -39,19 +34,19 @@ func Load() (*domain.Config, error) {
 }
 
 func Save(cfg *domain.Config) error {
-	p, err := path()
+	path, err := configPath()
 	if err != nil {
 		return err
 	}
-	if err := os.MkdirAll(filepath.Dir(p), 0700); err != nil {
+	if err := os.MkdirAll(filepath.Dir(path), 0700); err != nil {
 		return err
 	}
-	f, err := os.Create(p)
+	f, err := os.Create(path)
 	if err != nil {
 		return err
 	}
 	defer f.Close()
-	e := yaml.NewEncoder(f)
-	e.SetIndent(2)
-	return e.Encode(cfg)
+	enc := yaml.NewEncoder(f)
+	enc.SetIndent(2)
+	return enc.Encode(cfg)
 }
