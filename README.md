@@ -12,8 +12,67 @@
 Natural language → shell commands. Cloud or local AI.
 
 ## Install
+
+### From Release
 ```sh
+# Linux/macOS (AMD64)
+curl -L https://github.com/your-handle/pipeai/releases/latest/download/pipeai-linux-amd64 -o pipeai
+chmod +x pipeai
+sudo mv pipeai /usr/local/bin/
+
+# Linux/macOS (ARM64)
+curl -L https://github.com/your-handle/pipeai/releases/latest/download/pipeai-linux-arm64 -o pipeai
+chmod +x pipeai
+sudo mv pipeai /usr/local/bin/
+
+# Windows (PowerShell)
+Invoke-WebRequest -Uri https://github.com/your-handle/pipeai/releases/latest/download/pipeai-windows-amd64.exe -OutFile pipeai.exe
+```
+
+### From Source
+```sh
+# Clone repository
+git clone https://github.com/your-handle/pipeai.git
+cd pipeai
+
+# Build binary
+go build -o pipeai .
+
+# Install globally (Linux/macOS)
+sudo mv pipeai /usr/local/bin/
+
+# Or use go install
 go install github.com/your-handle/pipeai@latest
+```
+
+### Build Release
+```sh
+# Build for all platforms
+GOOS=linux GOARCH=amd64 go build -o pipeai-linux-amd64
+GOOS=linux GOARCH=arm64 go build -o pipeai-linux-arm64
+GOOS=darwin GOARCH=amd64 go build -o pipeai-darwin-amd64
+GOOS=darwin GOARCH=arm64 go build -o pipeai-darwin-arm64
+GOOS=windows GOARCH=amd64 go build -o pipeai-windows-amd64.exe
+
+# Create release archives
+tar czf pipeai-linux-amd64.tar.gz pipeai-linux-amd64
+tar czf pipeai-linux-arm64.tar.gz pipeai-linux-arm64
+tar czf pipeai-darwin-amd64.tar.gz pipeai-darwin-amd64
+tar czf pipeai-darwin-arm64.tar.gz pipeai-darwin-arm64
+zip pipeai-windows-amd64.zip pipeai-windows-amd64.exe
+```
+
+### Create Release
+```sh
+# Tag version
+git tag -a v1.0.0 -m "Release v1.0.0"
+git push origin v1.0.0
+
+# GitHub Actions will automatically:
+# 1. Build binaries for all platforms
+# 2. Create release archives
+# 3. Create GitHub release
+# 4. Upload artifacts
 ```
 
 ## Usage
