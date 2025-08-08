@@ -1,6 +1,5 @@
 .PHONY: all build clean
 
-APP := pipeai
 GOOS_ARCH := linux/amd64 linux/arm64 linux/386 linux/arm darwin/amd64 darwin/arm64 windows/amd64 windows/arm64 windows/386
 DIST_DIR := dist
 
@@ -11,7 +10,7 @@ build:
 	@mkdir -p $(DIST_DIR)
 	@for t in $(GOOS_ARCH); do \
 		os=$${t%/*}; arch=$${t#*/}; \
-		bin_name=$${APP}-$${os}-$${arch}; \
+		bin_name=pipeai-$${os}-$${arch}; \
 		if [ "$$os" = "windows" ]; then bin_name="$${bin_name}.exe"; fi; \
 		bin_path=$(DIST_DIR)/$$bin_name; \
 		echo "  Building for $$os/$$arch..."; \

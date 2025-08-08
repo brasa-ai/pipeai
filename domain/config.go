@@ -6,9 +6,10 @@ import (
 )
 
 type Config struct {
-	LLM   string `yaml:"llm"`   // gemini | openai | ollama
-	Model string `yaml:"model"` // gemini-pro, gpt-4o, llama3
-	Key   string `yaml:"key"`   // API key (not needed for ollama)
+	LLM      string `yaml:"llm"`       // gemini | openai | ollama
+	Model    string `yaml:"model"`     // gemini-pro, gpt-4o, llama3
+	Key      string `yaml:"key"`       // API key (not needed for ollama)
+	LogLevel string `yaml:"log_level"` // debug | info | warn | error
 }
 
 const defaultPrompt = `You are an expert shell engineer.

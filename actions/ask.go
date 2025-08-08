@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/your-handle/pipeai/domain"
-	"github.com/your-handle/pipeai/helpers"
-	"github.com/your-handle/pipeai/services"
+	"github.com/AxeByte/pipeai.axebyte/domain"
+	"github.com/AxeByte/pipeai.axebyte/helpers"
+	"github.com/AxeByte/pipeai.axebyte/services"
 )
 
 // RunAsk generates a shell command with the LLM and executes (or prints) it.

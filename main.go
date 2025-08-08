@@ -6,9 +6,9 @@ import (
 	"github.com/rs/zerolog"
 	"github.com/urfave/cli/v2"
 
-	"github.com/your-handle/pipeai/actions"
-	"github.com/your-handle/pipeai/helpers"
-	"github.com/your-handle/pipeai/services"
+	"github.com/AxeByte/pipeai.axebyte/actions"
+	"github.com/AxeByte/pipeai.axebyte/helpers"
+	"github.com/AxeByte/pipeai.axebyte/services"
 )
 
 func run(c *cli.Context) error {
@@ -17,6 +17,7 @@ func run(c *cli.Context) error {
 	if err != nil {
 		return cli.Exit("Failed to load config: "+err.Error(), 1)
 	}
+	helpers.SetupLogger(cfg.LogLevel)
 
 	if v := c.String("llm"); v != "" {
 		cfg.LLM = v

@@ -21,30 +21,24 @@ jobs:
           check-latest: true
 
       - name: Build binaries
-        run: |
-          GOOS=linux GOARCH=amd64 go build -o pipeai-linux-amd64
-          GOOS=linux GOARCH=arm64 go build -o pipeai-linux-arm64
-          GOOS=darwin GOARCH=amd64 go build -o pipeai-darwin-amd64
-          GOOS=darwin GOARCH=arm64 go build -o pipeai-darwin-arm64
-          GOOS=windows GOARCH=amd64 go build -o pipeai-windows-amd64.exe
+        run: make build
 
       - name: Create archives
         run: |
-          tar czf pipeai-linux-amd64.tar.gz pipeai-linux-amd64
-          tar czf pipeai-linux-arm64.tar.gz pipeai-linux-arm64
-          tar czf pipeai-darwin-amd64.tar.gz pipeai-darwin-amd64
-          tar czf pipeai-darwin-arm64.tar.gz pipeai-darwin-arm64
-          zip pipeai-windows-amd64.zip pipeai-windows-amd64.exe
+          cd dist
+          for f in *; do
+            if [[ "$f" == *.exe ]]; then
+              zip "${f%.exe}.zip" "$f"
+            else
+              tar czf "$f.tar.gz" "$f"
+            fi
+          done
+          cd ..
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
-          files: |
-            pipeai-linux-amd64.tar.gz
-            pipeai-linux-arm64.tar.gz
-            pipeai-darwin-amd64.tar.gz
-            pipeai-darwin-arm64.tar.gz
-            pipeai-windows-amd64.zip
+          files: dist/*.tar.gz
           draft: false
           prerelease: false
           generate_release_notes: true

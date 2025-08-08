@@ -8,6 +8,23 @@ import (
 
 var Log zerolog.Logger
 
+func SetupLogger(level string) {
+	var l zerolog.Level
+	switch level {
+	case "debug":
+		l = zerolog.DebugLevel
+	case "info":
+		l = zerolog.InfoLevel
+	case "warn":
+		l = zerolog.WarnLevel
+	case "error":
+		l = zerolog.ErrorLevel
+	default:
+		l = zerolog.InfoLevel
+	}
+	zerolog.SetGlobalLevel(l)
+}
+
 func init() {
 	// Set default log level to Info
 	zerolog.SetGlobalLevel(zerolog.InfoLevel)

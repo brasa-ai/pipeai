@@ -11,7 +11,7 @@ import (
 	"github.com/tmc/langchaingo/llms/ollama"
 	"github.com/tmc/langchaingo/llms/openai"
 
-	"github.com/your-handle/pipeai/domain"
+	"github.com/AxeByte/pipeai.axebyte/domain"
 )
 
 func NewLLM(ctx context.Context, cfg *domain.Config) (llms.LLM, error) {

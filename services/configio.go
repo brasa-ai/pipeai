@@ -7,7 +7,7 @@ import (
 	"github.com/mitchellh/go-homedir"
 	"gopkg.in/yaml.v3"
 
-	"github.com/your-handle/pipeai/domain"
+	"github.com/AxeByte/pipeai.axebyte/domain"
 )
 
 func configPath() (string, error) {

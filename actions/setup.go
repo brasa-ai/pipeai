@@ -6,8 +6,9 @@ import (
 	"os"
 	"strings"
 
-	"github.com/your-handle/pipeai/helpers"
-	"github.com/your-handle/pipeai/services"
+	"github.com/AxeByte/pipeai.axebyte/domain"
+	"github.com/AxeByte/pipeai.axebyte/helpers"
+	"github.com/AxeByte/pipeai.axebyte/services"
 )
 
 func prompt(r *bufio.Reader, label, def string) string {
@@ -23,13 +24,15 @@ func prompt(r *bufio.Reader, label, def string) string {
 func RunSetup() error {
 	cfg, err := services.Load()
 	if err != nil {
-		return fmt.Errorf("failed to load config: %v", err)
+		helpers.Log.Warn().Msg("No configuration file found, creating one.")
+		cfg = &domain.Config{}
 	}
 
 	r := bufio.NewReader(os.Stdin)
 	cfg.LLM = prompt(r, "LLM provider (gemini/openai/ollama)", cfg.LLM)
 	cfg.Key = prompt(r, "API key (skip for ollama)", cfg.Key)
 	cfg.Model = prompt(r, "Model", cfg.Model)
+	cfg.LogLevel = prompt(r, "Logger level (debug/info/warn/error)", cfg.LogLevel)
 
 	if err := services.Save(cfg); err != nil {
 		return fmt.Errorf("failed to save config: %v", err)

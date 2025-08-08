@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/your-handle/pipeai/domain"
+	"github.com/AxeByte/pipeai.axebyte/domain"
 )
 
 func TestRunAsk(t *testing.T) {
