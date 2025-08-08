@@ -36,7 +36,7 @@ Move-Item -Path pipeai-windows-amd64/pipeai-windows-amd64.exe -Destination pipea
 ### From Source
 ```sh
 # Clone repository
-git clone https://github.com/axebyte/pipeai.git
+git clone https://github.com/AxeByte/pipeai.axebyte.git
 cd pipeai
 
 # Build binary
@@ -46,7 +46,7 @@ go build -o pipeai .
 sudo mv pipeai /usr/local/bin/
 
 # Or use go install
-go install github.com/axebyte/pipeai@latest
+go install github.com/AxeByte/pipeai.axebyte@latest
 ```
 
 ### Build Release
