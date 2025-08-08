@@ -16,19 +16,19 @@ Natural language → shell commands. Cloud or local AI.
 ### From Release
 ```sh
 # Linux/macOS (AMD64)
-curl -L https://github.com/AxeByte/pipeai.axebyte/releases/download/stable/pipeai-linux-amd64.tar.gz -o pipeai-linux-amd64.tar.gz
+curl -L https://github.com/brasa-ai/pipeai/releases/download/stable/pipeai-linux-amd64.tar.gz -o pipeai-linux-amd64.tar.gz
 tar -xvf pipeai-linux-amd64.tar.gz pipeai-linux-amd64
 chmod +x pipeai-linux-amd64
 sudo mv pipeai-linux-amd64 /usr/local/bin/pipeai
 
 # Linux/macOS (ARM64)
-curl -L https://github.com/AxeByte/pipeai.axebyte/releases/download/stable/pipeai-linux-arm64.tar.gz -o pipeai-linux-arm64.tar.gz
+curl -L https://github.com/brasa-ai/pipeai/releases/download/stable/pipeai-linux-arm64.tar.gz -o pipeai-linux-arm64.tar.gz
 tar -xvf pipeai-linux-arm64.tar.gz pipeai-linux-arm64
 chmod +x pipeai-linux-arm64
 sudo mv pipeai-linux-arm64 /usr/local/bin/pipeai
 
 # Windows (PowerShell)
-Invoke-WebRequest -Uri https://github.com/AxeByte/pipeai.axebyte/releases/download/stable/pipeai-windows-amd64.zip -OutFile pipeai-windows-amd64.zip
+Invoke-WebRequest -Uri https://github.com/brasa-ai/pipeai/releases/download/stable/pipeai-windows-amd64.zip -OutFile pipeai-windows-amd64.zip
 Expand-Archive -Path pipeai-windows-amd64.zip -DestinationPath .
 Move-Item -Path pipeai-windows-amd64/pipeai-windows-amd64.exe -Destination pipeai.exe
 ```
@@ -36,7 +36,7 @@ Move-Item -Path pipeai-windows-amd64/pipeai-windows-amd64.exe -Destination pipea
 ### From Source
 ```sh
 # Clone repository
-git clone https://github.com/AxeByte/pipeai.axebyte.git
+git clone https://github.com/brasa-ai/pipeai.git
 cd pipeai
 
 # Build binary
@@ -46,7 +46,7 @@ go build -o pipeai .
 sudo mv pipeai /usr/local/bin/
 
 # Or use go install
-go install github.com/AxeByte/pipeai.axebyte@latest
+go install github.com/brasa-ai/pipeai@latest
 ```
 
 ## Usage
