@@ -11,6 +11,8 @@
 
 Natural language → shell commands. Cloud or local AI.
 
+![Fast Example](doc/example.gif)
+
 ## Install
 
 ### From Release
@@ -101,6 +103,8 @@ You can also override config values via flags:
 pipeai --llm ollama --model codellama --ask "find large files"
 ```
 
+## Examples
+
 ### Cross-Platform Commands
 ```sh
 # Same command, different OS:
@@ -108,15 +112,35 @@ pipeai --ask "show memory usage"
 # → Windows: wmic OS get FreePhysicalMemory,TotalVisibleMemorySize /Value
 # → Linux: free -h
 # → macOS: vm_stat && system_profiler SPHardwareDataType | grep Memory
-```
 
-## Examples
+pipeai --ask "find process by name"
+# → Windows: tasklist | findstr "process"
+# → Linux/macOS: ps aux | grep process
+
+pipeai --ask "show disk usage"
+# → Windows: wmic logicaldisk get size,freespace,caption
+# → Linux/macOS: df -h
+```
 
 ### Kubernetes
 ```sh
 # Pod management
 pipeai --act "get all pods not running in namespace prod"
 # → kubectl get pods -n prod --field-selector status.phase!=Running
+
+pipeai --act "list pods with high restart count"
+# → kubectl get pods --all-namespaces --sort-by='.status.containerStatuses[0].restartCount'
+
+# Resource usage
+pipeai --act "show memory usage of all nodes"
+# → kubectl top nodes | sort -k4 -hr
+
+pipeai --act "find pods using more than 2GB memory"
+# → kubectl top pods --all-namespaces | awk '$4 > 2000Mi'
+
+# Logs and debugging
+pipeai --act "show errors in all pod logs from last hour"
+# → kubectl logs --all-containers --since=1h | grep -i error
 ```
 
 ### Docker & Containers
@@ -124,20 +148,39 @@ pipeai --act "get all pods not running in namespace prod"
 # Cleanup
 pipeai --act "remove all stopped containers and unused images"
 # → docker rm $(docker ps -aq) && docker image prune -af
+
+# Monitoring
+pipeai --act "show containers using most memory"
+# → docker stats --no-stream --format "{{.Container}}: {{.MemUsage}}" | sort -k2 -hr
+
+pipeai --act "list containers with open ports"
+# → docker ps --format "{{.Names}}: {{.Ports}}" | grep -v '^:'
 ```
 
 ### System Operations
 ```sh
 # File operations
 pipeai --act "find large log files modified in last 24h"
-# → find /var/log -type f -mtime -1 -size +100M -exec ls -lh {} \;
+# → Windows: forfiles /P "C:\Logs" /M *.log /D -1 /C "cmd /c if @fsize GEQ 104857600 echo @path @fsize"
+# → Linux/macOS: find /var/log -type f -mtime -1 -size +100M -exec ls -lh {} \;
+
+# Process management
+pipeai --act "show processes eating CPU sorted by usage"
+# → Windows: tasklist /v /fi "CPUTIME gt 00:01:00" /fo list
+# → Linux/macOS: ps aux --sort=-%cpu | head -n 11
+
+# Network
+pipeai --act "show active connections by port usage"
+# → Windows: netstat -ano | findstr LISTENING
+# → Linux/macOS: netstat -tuln | awk 'NR>2 {print $4}' | sort | uniq -c | sort -nr
 ```
 
 ### Pipeline Processing
 ```sh
 # File processing
 echo "*.pdf" | pipeai --act "find all matching files recursively"
-# → find . -type f -name "*.pdf"
+# → Windows: dir /s /b *.pdf
+# → Linux/macOS: find . -type f -name "*.pdf"
 
 # Process filtering
 ps aux | pipeai --act "show processes using more than 1GB RAM"
@@ -146,6 +189,9 @@ ps aux | pipeai --act "show processes using more than 1GB RAM"
 # JSON/YAML handling
 kubectl get pods -o json | pipeai --act "extract container images"
 # → jq -r '.items[].spec.containers[].image' | sort | uniq
+
+cat values.yaml | pipeai --act "get all image tags"
+# → yq -r '.. | select(has("image")) | .image' | sort | uniq
 ```
 
 ### Git Operations
